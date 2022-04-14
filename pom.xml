@@ -113,5 +113,7 @@
 
 	<modules>
 		<module>core</module>
+		<module>desktop</module>
+		<module>html</module>
 	</modules>
 </project>
