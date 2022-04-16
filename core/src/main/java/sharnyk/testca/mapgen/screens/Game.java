@@ -17,6 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import sharnyk.testca.mapgen.MajorityVoteApp;
+import sharnyk.testca.mapgen.domain.split.MajorityVoteConcurrentSplitter;
+import sharnyk.testca.mapgen.domain.split.MajorityVoteSplitter;
 import sharnyk.testca.mapgen.domain.MapInit;
 import sharnyk.testca.mapgen.domain.MajorityVote;
 import sharnyk.testca.mapgen.domain.neigh.Diagonal;
@@ -30,27 +32,28 @@ import sharnyk.testca.mapgen.domain.topology.Torus;
 
 public class Game implements Screen {
 
-  public static final int WIDTH = 800;
-  public static final int HEIGHT = 480;
+  private static final int WIDTH = 800;
+  private static final int HEIGHT = 480;
 
   private final GameConfig config;
   private Color[] colorMap = {Color.BLACK, Color.WHITE, Color.RED, Color.GREEN, Color.BLUE};
 
   // visual utils
   private ShapeRenderer renderer;
-  final MajorityVoteApp game;
-  OrthographicCamera camera;
-  Skin uiSkin;
-  Stage uiStage;
+  private final MajorityVoteApp game;
+  private OrthographicCamera camera;
+  private Skin uiSkin;
+  private Stage uiStage;
 
   // logic utils
-  MapInit mapInit = new MapInit();
-  MajorityVote mooreMajorityVote ;
+  private MapInit mapInit = new MapInit();
+  private MajorityVote majorityVote;
+  private MajorityVoteConcurrentSplitter splitter;
 
   // game state
-  int[][] tileMap;
-  int whiteSum = 0;
-  int step = 0;
+  private int[][] tileMap;
+  private int whiteSum = 0;
+  private int step = 0;
 
 
 
@@ -76,8 +79,9 @@ public class Game implements Screen {
       neigh = new Diagonal();
     else
       neigh = new Moore();
-    mooreMajorityVote = new MajorityVote(config.getColors(), config.getNeighSize(),
+    majorityVote = new MajorityVote(config.getColors(), config.getNeighSize(),
         topology, neigh);
+    splitter = new MajorityVoteConcurrentSplitter(majorityVote, 16);
 
 //    rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
 //    rainMusic.setLooping(true);
@@ -130,17 +134,17 @@ public class Game implements Screen {
     game.batch.end();
 
     if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
-      applyMoore();
+      applyMajorityVote();
 
     if (Gdx.input.isKeyPressed(Keys.ENTER))
-      applyMoore();
+      applyMajorityVote();
 
     uiStage.act();
     uiStage.draw();
   }
 
-  private void applyMoore() {
-    tileMap = mooreMajorityVote.changeMap(tileMap);
+  private void applyMajorityVote() {
+    tileMap = splitter.changeMap(tileMap);
     whiteSum = mapInit.countSum(tileMap);
     step++;
   }

@@ -1,4 +1,4 @@
-package sharnyk;
+package sharnyk.majvote;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;

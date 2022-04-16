@@ -6,9 +6,9 @@ import sharnyk.testca.mapgen.domain.topology.Plain;
 import sharnyk.testca.mapgen.domain.topology.Topology;
 
 public class MajorityVote {
-  int colorsCount;
-  int neighSize;
-  Topology topology;
+  private int colorsCount;
+  private int neighSize;
+  private Topology topology;
   Neighbourhood neigh;
 
   public MajorityVote(int colorsCount, int neighSize, Topology topology, Neighbourhood neigh) {
@@ -26,11 +26,22 @@ public class MajorityVote {
   }
 
   public int[][] changeMap(int[][] map) {
-    int[][] result = new int[map.length][map[0].length];
+    return changeMap(map, 0, map.length-1);
+  }
 
-    for(int i=0; i<map.length; i++) {
+  public int[][] changeMap(int[][] map, int from, int to) {
+
+    if(from < 0)
+      throw new RuntimeException("Lover bound should be > 0 but " + from);
+    if(to >= map.length)
+      throw new RuntimeException("Upper bound should be < map.length-1 but " + to);
+
+    int resLength = to-from+1;
+    int[][] result = new int[resLength][map[0].length];
+
+    for(int i=from; i<=to; i++) {
       for(int j=0; j<map[0].length; j++) {
-        result[i][j] = majorityVote(i, j, map);
+        result[i-from][j] = majorityVote(i, j, map);
       }
     }
 

@@ -4,6 +4,14 @@ import java.util.SplittableRandom;
 
 public class MapInit {
 
+  /**
+   *
+   * @param height
+   * @param weight
+   * @param colors
+   * @param density - should be between 0 and 100
+   * @return
+   */
   public int[][] noiseMap(int height, int weight, int colors, int density) {
     return colors == 2 ? bwMap(height, weight, density) : multicolorMap(height, weight, colors);
   }
