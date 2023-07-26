@@ -1,6 +1,6 @@
-package sharnyk.testca.mapgen.domain.split;
+package sharnyk.testca.mapgen.majvote.split;
 
-import sharnyk.testca.mapgen.domain.MajorityVote;
+import sharnyk.testca.mapgen.majvote.MajorityVote;
 
 public class MajorityVoteSplitter {
 

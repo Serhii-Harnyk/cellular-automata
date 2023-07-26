@@ -1,4 +1,4 @@
-package sharnyk.testca.mapgen.screens;
+package sharnyk.testca.mapgen.majvote.screens;
 
 import lombok.Builder;
 import lombok.Data;

@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.junit.Test;
-import sharnyk.testca.mapgen.domain.MajorityVote;
-import sharnyk.testca.mapgen.domain.split.MajorityVoteConcurrentSplitter;
-import sharnyk.testca.mapgen.domain.split.MajorityVoteSplitter;
-import sharnyk.testca.mapgen.domain.MapInit;
+import sharnyk.testca.mapgen.majvote.MajorityVote;
+import sharnyk.testca.mapgen.majvote.split.MajorityVoteConcurrentSplitter;
+import sharnyk.testca.mapgen.majvote.split.MajorityVoteSplitter;
+import sharnyk.testca.mapgen.majvote.MapInit;
 import sharnyk.testca.mapgen.domain.neigh.Moore;
 import sharnyk.testca.mapgen.domain.topology.Plain;
 

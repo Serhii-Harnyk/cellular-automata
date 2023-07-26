@@ -1,9 +1,9 @@
-package sharnyk.testca.mapgen.domain.split;
+package sharnyk.testca.mapgen.majvote.split;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import sharnyk.testca.mapgen.domain.MajorityVote;
+import sharnyk.testca.mapgen.majvote.MajorityVote;
 
 public class MajorityVoteConcurrentSplitter {
 
@@ -21,10 +21,10 @@ public class MajorityVoteConcurrentSplitter {
     int _splits = Math.min(splits, map.length);
     int step = map.length/_splits;
 
-    List<CompletableFuture> futures = new ArrayList<>();
+    List<CompletableFuture<Void>> futures = new ArrayList<>();
     for(int i=0; i<_splits; i++) {
       int finalI = i;
-      CompletableFuture cf = CompletableFuture.
+      CompletableFuture<Void> cf = CompletableFuture.
           supplyAsync(() -> fetchResult(map, finalI, step)).
               thenAccept(tempResult -> {
                 for(int j = 0; j<tempResult.length; j++) {

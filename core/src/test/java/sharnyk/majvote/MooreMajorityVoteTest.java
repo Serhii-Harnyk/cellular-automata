@@ -4,7 +4,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import sharnyk.testca.mapgen.domain.MajorityVote;
+import sharnyk.testca.mapgen.majvote.MajorityVote;
 import sharnyk.testca.mapgen.domain.neigh.Moore;
 import sharnyk.testca.mapgen.domain.topology.Plain;
 

@@ -1,4 +1,4 @@
-package sharnyk.testca.mapgen.screens;
+package sharnyk.testca.mapgen.majvote.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -16,18 +16,40 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import sharnyk.testca.mapgen.MajorityVoteApp;
+import sharnyk.testca.mapgen.MapgenApp;
 
-public class MainMenu implements Screen {
+public class MajorityVoteMenu implements Screen {
 
-  final MajorityVoteApp game;
+  MapgenApp game;
   OrthographicCamera camera;
   Stage uiStage;
   Skin uiSkin;
+  GameConfig config;
 
-  public MainMenu(final MajorityVoteApp game) {
+  public MajorityVoteMenu(final MapgenApp game) {
+    GameConfig defaultConfig = GameConfig.builder()
+        .scale(5)
+        .density(Math.round(50f))
+        .colors(2)
+        .neighSize(1)
+        .topology("Plain")
+        .neigh("Moore")
+        .build();
+
     this.game = game;
+    this.config = defaultConfig;
 
+    setUpScreen();
+  }
+
+  public MajorityVoteMenu(final MapgenApp game, GameConfig config) {
+    this.game = game;
+    this.config = config;
+
+    setUpScreen();
+  }
+
+  private void setUpScreen(){
     camera = new OrthographicCamera();
     camera.setToOrtho(false, 800, 480);
     uiSkin = new Skin(Gdx.files.internal("mapgen/uiskin.json"));
@@ -68,19 +90,19 @@ public class MainMenu implements Screen {
 
     final SelectBox<Integer> selectScale = new SelectBox<>(uiSkin);
     selectScale.setItems(1,2,3,4,5,10,50);
-    selectScale.setSelected(5);
+    selectScale.setSelected(config.getScale());
 
     final SelectBox<Integer> colors = new SelectBox<>(uiSkin);
     colors.setItems(2,3,4,5);
-    colors.setSelected(2);
+    colors.setSelected(config.getColors());
 
     final SelectBox<Integer> neighSize = new SelectBox<>(uiSkin);
     neighSize.setItems(1, 2,3,4,5);
-    neighSize.setSelected(1);
+    neighSize.setSelected(config.getNeighSize());
 
 
     final Slider densitySlider = new Slider(1f, 100f, 1f, false, uiSkin);
-    densitySlider.setValue(50f);
+    densitySlider.setValue(config.getDensity());
 
     final Label densityLabel = new Label(Float.valueOf(densitySlider.getValue()).toString(), uiSkin);
     densitySlider.addListener(new ChangeListener() {
@@ -90,13 +112,13 @@ public class MainMenu implements Screen {
       }
     });
 
-    final SelectBox<String> topology= new SelectBox<>(uiSkin);
+    final SelectBox<String> topology = new SelectBox<>(uiSkin);
     topology.setItems("Plain", "Cylinder", "Torus");
-    topology.setSelected("Plain");
+    topology.setSelected(config.getTopology());
 
     final SelectBox<String> neigh = new SelectBox<>(uiSkin);
     neigh.setItems("Moore", "Von Neumann", "Diagonal");
-    neigh.setSelected("Moore");
+    neigh.setSelected(config.getNeigh());
 
 
     TextButton playButton = new TextButton( "Run Simulation", uiSkin);
@@ -114,7 +136,7 @@ public class MainMenu implements Screen {
             .neigh(neigh.getSelected())
             .build();
 
-        game.setScreen(new Game(game, config));
+        game.setScreen(new MajorityVoteGame(game, config));
         dispose();
       }
     });

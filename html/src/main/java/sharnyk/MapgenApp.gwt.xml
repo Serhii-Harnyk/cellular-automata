@@ -1,7 +1,7 @@
 <module rename-to='testca'>
 	<inherits name='com.badlogic.gdx.backends.gdx_backends_gwt' />
 
-	<source path='core'/>
+	<source path='topology'/>
 	<source path='html'/>
 
 	<public path="resources" />

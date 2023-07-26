@@ -4,9 +4,9 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import sharnyk.testca.mapgen.domain.MajorityVote;
-import sharnyk.testca.mapgen.domain.split.MajorityVoteConcurrentSplitter;
-import sharnyk.testca.mapgen.domain.split.MajorityVoteSplitter;
+import sharnyk.testca.mapgen.majvote.MajorityVote;
+import sharnyk.testca.mapgen.majvote.split.MajorityVoteConcurrentSplitter;
+import sharnyk.testca.mapgen.majvote.split.MajorityVoteSplitter;
 
 
 public class MVSplitterTest {

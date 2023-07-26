@@ -1,8 +1,10 @@
-package sharnyk.testca.mapgen.domain;
+package sharnyk.testca.mapgen.majvote;
 
 import java.util.SplittableRandom;
 
 public class MapInit {
+
+  private SplittableRandom splittableRandom = new SplittableRandom();
 
   /**
    *
@@ -18,7 +20,6 @@ public class MapInit {
 
   private int[][] multicolorMap(int height, int weight, int colors) {
     int[][] map = new int[height][weight];
-    SplittableRandom splittableRandom = new SplittableRandom();
     for(int i=0; i<height; i++) {
       for(int j=0; j<weight; j++) {
         map[i][j] = splittableRandom.nextInt(0,colors);
@@ -31,7 +32,6 @@ public class MapInit {
 
   private int[][] bwMap(int height, int weight, int density) {
     int[][] map = new int[height][weight];
-    SplittableRandom splittableRandom = new SplittableRandom();
     for(int i=0; i<height; i++) {
       for(int j=0; j<weight; j++) {
         int seed = splittableRandom.nextInt(0,100);

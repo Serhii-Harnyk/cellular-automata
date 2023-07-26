@@ -1,4 +1,4 @@
-package sharnyk.testca.mapgen.domain;
+package sharnyk.testca.mapgen.majvote;
 
 import sharnyk.testca.mapgen.domain.neigh.Moore;
 import sharnyk.testca.mapgen.domain.neigh.Neighbourhood;
@@ -9,7 +9,7 @@ public class MajorityVote {
   private int colorsCount;
   private int neighSize;
   private Topology topology;
-  Neighbourhood neigh;
+  private Neighbourhood neigh;
 
   public MajorityVote(int colorsCount, int neighSize, Topology topology, Neighbourhood neigh) {
     this.colorsCount = colorsCount;
@@ -66,7 +66,7 @@ public class MajorityVote {
 
   private int[] countValues(int i, int j, int[][] map) {
     int[] result = new int[colorsCount];
-    int[][] neigh = this.neigh.neighbourhood(topology.neighborhood(i,j,map, neighSize));
+    int[][] neigh = this.neigh.neighbourhood(topology.neighborhood(i,j,map, neighSize)); // todo main neigh line
 
     for(int i0=0;i0<neigh.length;i0++){
       for(int j0=0;j0<neigh[0].length;j0++){

@@ -8,7 +8,7 @@ import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
 
 public class MapgenAppHtml extends GwtApplication {
 	@Override
-	public ApplicationListener getApplicationListener () {
+	public ApplicationListener createApplicationListener () {
 		return new MapgenApp();
 	}
 	

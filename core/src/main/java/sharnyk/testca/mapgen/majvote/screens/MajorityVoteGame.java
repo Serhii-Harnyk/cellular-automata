@@ -1,4 +1,4 @@
-package sharnyk.testca.mapgen.screens;
+package sharnyk.testca.mapgen.majvote.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -16,11 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import sharnyk.testca.mapgen.MajorityVoteApp;
-import sharnyk.testca.mapgen.domain.split.MajorityVoteConcurrentSplitter;
-import sharnyk.testca.mapgen.domain.split.MajorityVoteSplitter;
-import sharnyk.testca.mapgen.domain.MapInit;
-import sharnyk.testca.mapgen.domain.MajorityVote;
+import sharnyk.testca.mapgen.MapgenApp;
+import sharnyk.testca.mapgen.majvote.split.MajorityVoteConcurrentSplitter;
 import sharnyk.testca.mapgen.domain.neigh.Diagonal;
 import sharnyk.testca.mapgen.domain.neigh.Moore;
 import sharnyk.testca.mapgen.domain.neigh.Neighbourhood;
@@ -29,8 +26,10 @@ import sharnyk.testca.mapgen.domain.topology.Cylinder;
 import sharnyk.testca.mapgen.domain.topology.Plain;
 import sharnyk.testca.mapgen.domain.topology.Topology;
 import sharnyk.testca.mapgen.domain.topology.Torus;
+import sharnyk.testca.mapgen.majvote.MajorityVote;
+import sharnyk.testca.mapgen.majvote.MapInit;
 
-public class Game implements Screen {
+public class MajorityVoteGame implements Screen {
 
   private static final int WIDTH = 800;
   private static final int HEIGHT = 480;
@@ -40,7 +39,7 @@ public class Game implements Screen {
 
   // visual utils
   private ShapeRenderer renderer;
-  private final MajorityVoteApp game;
+  private final MapgenApp game;
   private OrthographicCamera camera;
   private Skin uiSkin;
   private Stage uiStage;
@@ -58,7 +57,7 @@ public class Game implements Screen {
 
 
 
-  public Game(final MajorityVoteApp gam, GameConfig config) {
+  public MajorityVoteGame(final MapgenApp gam, GameConfig config) {
     this.game = gam;
     this.config = config;
     uiSkin = new Skin(Gdx.files.internal("mapgen/uiskin.json"));
@@ -82,9 +81,6 @@ public class Game implements Screen {
     majorityVote = new MajorityVote(config.getColors(), config.getNeighSize(),
         topology, neigh);
     splitter = new MajorityVoteConcurrentSplitter(majorityVote, 16);
-
-//    rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
-//    rainMusic.setLooping(true);
 
     // create the camera and the SpriteBatch
     camera = new OrthographicCamera();
@@ -172,7 +168,7 @@ public class Game implements Screen {
       @Override
       public void clicked(InputEvent event, float x, float y) {
 
-        game.setScreen(new MainMenu(game));
+        game.setScreen(new MajorityVoteMenu(game, config));
         dispose();
       }
     });
