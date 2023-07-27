@@ -1,5 +1,7 @@
 package sharnyk.testca.mapgen.trail;
 
+import java.util.Arrays;
+
 public class PathIndex {
     public int[] index;
     public int maxHeight;
@@ -13,7 +15,7 @@ public class PathIndex {
 
     private void init(int[] index) {
         int top = 0;
-        int bottom = 9;
+        int bottom = 0;
 
         int pointer = 0; //relative index
         for (int j : index) {
@@ -24,12 +26,10 @@ public class PathIndex {
 
         maxTop = top;
         minBottom = bottom;
+        maxHeight = top - bottom + 1;
+    }
 
-        if(top==0 && bottom==0)
-            maxHeight = 1;
-        else if(top==0 || bottom==0)
-            maxHeight = top-bottom+1;
-        else
-            maxHeight = top-bottom-1;
+    public int getPathLength() {
+        return Arrays.stream(index).map(Math::abs).sum() + index.length;
     }
 }

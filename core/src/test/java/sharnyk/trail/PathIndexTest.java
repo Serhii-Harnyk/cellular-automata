@@ -13,13 +13,19 @@ public class PathIndexTest {
 
     PathIndex index = new PathIndex(new int[] {0,3,0,0,-5,-3,0,4,2,0});
 
-    Assert.assertEquals(7, index.maxHeight);
+    Assert.assertEquals(9, index.maxHeight);
 
     index = new PathIndex(new int[] {0,1,1,1,0,0,0,0,0,0});
     Assert.assertEquals(4, index.maxHeight);
 
     index = new PathIndex(new int[] {0,1,-1,1,-1,1,-1,1,-1,0});
     Assert.assertEquals(2, index.maxHeight);
+
+    index = new PathIndex(new int[] {0,0,0,0,0,0,0,0,0,0});
+    Assert.assertEquals(1, index.maxHeight);
+
+    index = new PathIndex(new int[] {3, 1, 4, 2, -4, 1, 0, 2, -3, 0});
+    Assert.assertEquals(10, index.maxHeight);
   }
 
 }

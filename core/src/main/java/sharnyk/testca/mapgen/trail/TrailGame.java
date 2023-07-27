@@ -18,7 +18,7 @@ public class TrailGame implements Screen {
   private static final int WIDTH = 1025;
   private static final int HEIGHT = 1025;
 
-  private final Color[] colorMap = {Color.WHITE, Color.BLACK};
+  private final Color[] colorMap = {Color.WHITE, Color.BLACK, Color.LIGHT_GRAY};
 
   // visual utils
   private ShapeRenderer renderer;
@@ -67,7 +67,7 @@ public class TrailGame implements Screen {
     renderer.begin(ShapeType.Filled);
     renderer.setColor(Color.BLACK);
 
-    int scale = Math.min(WIDTH/10, HEIGHT/10);
+    int scale = Math.min(WIDTH/trailGameConfig.getWidth(), HEIGHT/trailGameConfig.getHeight());
 
     for(int x = 0; x<tileMap.length; x++) {
       for(int y = 0; y<tileMap[0].length; y++) {
@@ -103,7 +103,16 @@ public class TrailGame implements Screen {
   }
 
   private void generateMap() {
-    tileMap = trail.trail();
+    tileMap = trail.field();
+
+    //decorate with light gray
+    for(int x = 0; x<tileMap.length; x++) {
+      for(int y = 0; y<tileMap[0].length; y++) {
+        if(tileMap[x][y] == 0 && (x+y)%2==1) {
+          tileMap[x][y] = 2;
+        }
+      }
+    }
   }
 
   @Override
