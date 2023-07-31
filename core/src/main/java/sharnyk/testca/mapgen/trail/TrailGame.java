@@ -7,11 +7,16 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import sharnyk.testca.mapgen.MapgenApp;
+import sharnyk.testca.mapgen.majvote.screens.MajorityVoteMenu;
 
 public class TrailGame implements Screen {
 
@@ -99,6 +104,21 @@ public class TrailGame implements Screen {
     game.font.getData().setScale(1.5f);
 
     generateMap();
+
+    Table table = new Table(uiSkin);
+    table.setFillParent(true);
+    TextButton playButton = new TextButton( "Back", uiSkin);
+    playButton.addListener(new ClickListener(){
+      @Override
+      public void clicked(InputEvent event, float x, float y) {
+
+        game.setScreen(new TrailMenu(game, trailGameConfig));
+        dispose();
+      }
+    });
+    table.add(playButton);
+
+    uiStage.addActor(playButton);
 
   }
 

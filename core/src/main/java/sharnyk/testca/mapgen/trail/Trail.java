@@ -23,20 +23,21 @@ public class Trail {
     public int[][] field() {
         if(pathLength < width)
             throw new RuntimeException("Path length should be more than width of the area");
-
         if(height/2 < maxChunkLength)
             throw new RuntimeException("MaxChunkLength shouldn't be more than half of height");
-
 
         int[][] result = new int[width][height];
 
         PathIndex index = generateIndex();
+
+        // randomly define starting point based on height of the path
         int pointerY;
         if(index.maxTop == height+index.minBottom)
             pointerY = index.maxTop;
         else
             pointerY = splittableRandom.nextInt(index.maxTop, height+index.minBottom);
 
+        // paint field according to index
         for(int i =0; i< index.index.length; i++) {
             int j = 0;
             int arrow = index.index[i];
@@ -78,7 +79,6 @@ public class Trail {
         List<Integer> buckets =  IntStream.range(0, width-1).boxed().collect(Collectors.toList());
 
         while (lengthToDistr >0 ) {
-
             int bucket = buckets.get(splittableRandom.nextInt(0,buckets.size()));
             index[bucket] ++;
             if(index[bucket] == maxChunkLength)
@@ -91,16 +91,18 @@ public class Trail {
             lengthToDistr--;
         }
 
+        /* place sings(directions) in a way that total height of path
+            shouldn't be more than height of field
+         */
         int pointerY = 0;
         int top = 0;
         int bottom = 0;
         for(int i=0; i < index.length; i++) {
-
             int sign;
             int curr = index[i];
 
             if((top - (pointerY - curr) > height) && ((pointerY + curr) - bottom > height)) {
-                throw new RuntimeException("dddddd");
+                throw new RuntimeException("Unsolvable index");
             }
 
             if(top - (pointerY - curr) >= height-1)
@@ -115,7 +117,6 @@ public class Trail {
             top = Math.max(top, pointerY);
             bottom = Math.min(bottom, pointerY);
         }
-
 
         return new PathIndex(index);
     }

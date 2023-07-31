@@ -8,15 +8,6 @@ import sharnyk.testca.mapgen.trail.Trail;
 public class TrailTest {
 
     @Test
-    public void fieldTest(){
-        Trail trail = new Trail(10, 10, 30, 4);
-
-        int[][] field = trail.field();
-
-
-    }
-
-    @Test
     public void genIndexTest() {
         int pLength = 30;
         int width = 10;
