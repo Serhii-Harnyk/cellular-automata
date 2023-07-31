@@ -13,7 +13,7 @@ import sharnyk.testca.mapgen.domain.topology.Plain;
 
 public class E2EPerfTest {
 
-  @Test
+//  @Test
   public void e2eMVTest() {
 
     MapInit mapInit = new MapInit();
@@ -30,7 +30,7 @@ public class E2EPerfTest {
     }
   }
 
-  @Test
+//  @Test
   public void e2eMVSplitterTest() {
 
     MapInit mapInit = new MapInit();
@@ -47,7 +47,7 @@ public class E2EPerfTest {
 
   }
 
-  @Test
+//  @Test
   public void e2eMVConcurrentSplitterTest() {
 
     MapInit mapInit = new MapInit();

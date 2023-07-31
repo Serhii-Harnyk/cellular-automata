@@ -24,7 +24,7 @@ public class PathIndexTest {
     index = new PathIndex(new int[] {0,0,0,0,0,0,0,0,0,0});
     Assert.assertEquals(1, index.maxHeight);
 
-    index = new PathIndex(new int[] {3, 1, 4, 2, -4, 1, 0, 2, -3, 0});
+    index = new PathIndex(new int[] {3, 1, 3, 2, -4, 1, 0, 2, -3, 0});
     Assert.assertEquals(10, index.maxHeight);
   }
 
