@@ -1,7 +1,7 @@
 package sharnyk.diasqu;
 
 import org.junit.Test;
-import sharnyk.testca.mapgen.diasqu.DiaSqu;
+import sharnyk.testca.mapgen.archive.diasqu.DiaSqu;
 
 public class DiasquTest {
 

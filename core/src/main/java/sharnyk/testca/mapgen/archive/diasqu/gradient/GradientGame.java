@@ -1,7 +1,6 @@
-package sharnyk.testca.mapgen.diasqu;
+package sharnyk.testca.mapgen.archive.diasqu.gradient;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -11,9 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import sharnyk.testca.mapgen.MapgenApp;
+import sharnyk.testca.mapgen.CAApp;
 
-public class DiaSquGame implements Screen {
+public class GradientGame implements Screen {
 
   private static final int WIDTH = 1025;
   private static final int HEIGHT = 1025;
@@ -23,21 +22,14 @@ public class DiaSquGame implements Screen {
 
   // visual utils
   private ShapeRenderer renderer;
-  private final MapgenApp game;
+  private final CAApp game;
   private OrthographicCamera camera;
   private Skin uiSkin;
   private Stage uiStage;
 
-  // logic utils
-  private DiaSqu diaSqu = new DiaSqu();
-  // game state
-  private int step = 0;
-  int[][] tileMap;
 
 
-
-
-  public DiaSquGame(final MapgenApp gam) {
+  public GradientGame(final CAApp gam) {
     this.game = gam;
     uiSkin = new Skin(Gdx.files.internal("mapgen/uiskin.json"));
     uiStage = new Stage(new ScreenViewport(), game.batch);
@@ -64,28 +56,22 @@ public class DiaSquGame implements Screen {
     renderer.begin(ShapeType.Filled);
     renderer.setColor(Color.BLACK);
 
-    int scale = (int) Math.pow(2, 5);
+    int scale = (int) Math.pow(2, 6);
 
-    for(int x = 0; x<tileMap.length; x++) {
-      for(int y = 0; y<tileMap[0].length; y++) {
-        renderer.setColor(colorMap[tileMap[x][y]]);
-        //renderer.setColor(new Color());
-        renderer.rect(x*scale, y*scale , scale, scale);
-      }
+//    for(int x = 0; x<tileMap.length; x++) {
+//      for(int y = 0; y<tileMap[0].length; y++) {
+//        renderer.setColor(colorMap[tileMap[x][y]]);
+//        renderer.setColor(new Color());
+//        renderer.rect(x*scale, y*scale , scale, scale);
+//      }
+//    }
+
+    for(int i=0; i<colorMap.length; i++) {
+      renderer.setColor(colorMap[i]);
+      renderer.rect(i*scale,0,scale,HEIGHT+scale);
     }
 
     renderer.end();
-
-
-
-
-
-
-    if (Gdx.input.isKeyJustPressed(Keys.SPACE))
-      generateMap();
-//
-//    if (Gdx.input.isKeyPressed(Keys.ENTER))
-//      applyMajorityVote();
 
     uiStage.act();
     uiStage.draw();
@@ -104,13 +90,9 @@ public class DiaSquGame implements Screen {
     game.font.setColor(0,0,1,0.8f);
     game.font.getData().setScale(1.5f);
 
-    generateMap();
 
   }
 
-  private void generateMap() {
-    tileMap = diaSqu.diasqu();
-  }
 
   @Override
   public void hide() {

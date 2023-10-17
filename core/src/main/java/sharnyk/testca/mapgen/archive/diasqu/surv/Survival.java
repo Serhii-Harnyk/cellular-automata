@@ -1,18 +1,16 @@
-package sharnyk.testca.mapgen.surv;
+package sharnyk.testca.mapgen.archive.diasqu.surv;
 
-import java.util.AbstractMap;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashSet;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SplittableRandom;
-import java.util.concurrent.ThreadLocalRandom;
+
 import lombok.Getter;
 import lombok.Setter;
 import sharnyk.testca.mapgen.domain.neigh.Moore;
 import sharnyk.testca.mapgen.domain.neigh.Neighbourhood;
 import sharnyk.testca.mapgen.domain.topology.Plain;
-import sharnyk.testca.mapgen.domain.topology.Topology;
+import sharnyk.testca.mapgen.domain.topology.Topology2d;
 
 /**
  * 0-99 - ground
@@ -34,7 +32,7 @@ public class Survival {
   private int[][] grassMap;
   private int[][] fullMap;
 
-  private Topology topology = new Plain();
+  private Topology2d topology = new Plain();
   private Neighbourhood neigh = new Moore();
   private int neighSize = 1;
   private SplittableRandom splittableRandom = new SplittableRandom();

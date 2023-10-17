@@ -1,4 +1,4 @@
-package sharnyk.testca.mapgen.trail;
+package sharnyk.testca.mapgen.ships;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -11,20 +11,19 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import sharnyk.testca.mapgen.CAApp;
 
-public class TrailMenu implements Screen {
+public class ShipsMenu implements Screen {
 
   CAApp game;
   OrthographicCamera camera;
   Stage uiStage;
   Skin uiSkin;
-  TrailGameConfig config;
+  ShipsGameConfig config;
 
-  public TrailMenu(final CAApp game) {
-    TrailGameConfig defaultConfig = TrailGameConfig.builder()
+  public ShipsMenu(final CAApp game) {
+    ShipsGameConfig defaultConfig = ShipsGameConfig.builder()
             .height(10)
             .width(10)
             .pathLength(30)
-            .maxChunkLength(4)
         .build();
 
     this.game = game;
@@ -33,7 +32,7 @@ public class TrailMenu implements Screen {
     setUpScreen();
   }
 
-  public TrailMenu(final CAApp game, TrailGameConfig config) {
+  public ShipsMenu(final CAApp game, ShipsGameConfig config) {
     this.game = game;
     this.config = config;
 
@@ -82,7 +81,6 @@ public class TrailMenu implements Screen {
     final TextField height = new TextField(config.getHeight()+"", uiSkin);
     final TextField width = new TextField(config.getWidth()+"", uiSkin);
     final TextField pathLength = new TextField(config.getPathLength()+"", uiSkin);
-    final TextField maxChunk = new TextField(config.getMaxChunkLength()+"", uiSkin);
 
 
 
@@ -93,14 +91,13 @@ public class TrailMenu implements Screen {
       public void clicked(InputEvent event, float x, float y) {
 
 
-        final TrailGameConfig config = TrailGameConfig.builder()
+        final ShipsGameConfig config = ShipsGameConfig.builder()
                 .height(Integer.parseInt(height.getText()))
                 .width(Integer.parseInt(width.getText()))
-                .maxChunkLength(Integer.parseInt(maxChunk.getText()))
                 .pathLength(Integer.parseInt(pathLength.getText()))
             .build();
 
-        game.setScreen(new TrailGame(game, config));
+        game.setScreen(new ShipsGame(game, config));
         dispose();
       }
     });
@@ -121,10 +118,6 @@ public class TrailMenu implements Screen {
 
     table.add(new Label("Path length", uiSkin));
     table.add(pathLength).fillX().uniformX();
-    table.row().pad(10, 0, 10, 0);
-
-    table.add(new Label("Max chunk length", uiSkin));
-    table.add(maxChunk).fillX().uniformX();
     table.row().pad(10, 0, 10, 0);
 
     table.add(playButton);

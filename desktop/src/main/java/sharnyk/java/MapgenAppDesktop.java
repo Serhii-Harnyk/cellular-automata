@@ -2,7 +2,7 @@ package sharnyk.java;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import sharnyk.testca.mapgen.MapgenApp;
+import sharnyk.testca.mapgen.CAApp;
 
 
 public class MapgenAppDesktop {
@@ -10,6 +10,6 @@ public class MapgenAppDesktop {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.height = 750;
 		config.width = 1000;
-		new LwjglApplication(new MapgenApp(), config);
+		new LwjglApplication(new CAApp(), config);
 	}
 }

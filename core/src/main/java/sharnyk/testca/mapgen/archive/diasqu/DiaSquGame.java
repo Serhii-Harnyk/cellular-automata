@@ -1,7 +1,7 @@
-package sharnyk.testca.mapgen.trail;
+package sharnyk.testca.mapgen.archive.diasqu;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -13,31 +13,31 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import sharnyk.testca.mapgen.CAApp;
 
-public class TrailGame implements Screen {
+public class DiaSquGame implements Screen {
 
   private static final int WIDTH = 1025;
   private static final int HEIGHT = 1025;
 
-  private final Color[] colorMap = {Color.WHITE, Color.BLACK, Color.LIGHT_GRAY};
+  private Color[] colorMap = {Color.BLACK, Color.BLUE, Color.GREEN, Color.RED, Color.CHARTREUSE, Color.BROWN, Color.CORAL, Color.CYAN,
+      Color.GOLD, Color.LIME, Color.ORANGE, Color.MAROON, Color.FOREST, Color.NAVY, Color.ROYAL, Color.WHITE};
 
   // visual utils
   private ShapeRenderer renderer;
   private final CAApp game;
-  private final OrthographicCamera camera;
-  private final Skin uiSkin;
-  private final Stage uiStage;
+  private OrthographicCamera camera;
+  private Skin uiSkin;
+  private Stage uiStage;
 
   // logic utils
-  private final Trail trail;
+  private DiaSqu diaSqu = new DiaSqu();
   // game state
-  private final int step = 0;
+  private int step = 0;
   int[][] tileMap;
-  TrailGameConfig trailGameConfig;
 
 
 
 
-  public TrailGame(final CAApp gam, TrailGameConfig config) {
+  public DiaSquGame(final CAApp gam) {
     this.game = gam;
     uiSkin = new Skin(Gdx.files.internal("mapgen/uiskin.json"));
     uiStage = new Stage(new ScreenViewport(), game.batch);
@@ -45,9 +45,6 @@ public class TrailGame implements Screen {
     // create the camera and the SpriteBatch
     camera = new OrthographicCamera();
     camera.setToOrtho(false, WIDTH, HEIGHT+30);
-
-    trail = new Trail(config.getHeight(), config.getWidth(), config.getPathLength(), config.getMaxChunkLength());
-    trailGameConfig = config;
 
   }
 
@@ -67,19 +64,28 @@ public class TrailGame implements Screen {
     renderer.begin(ShapeType.Filled);
     renderer.setColor(Color.BLACK);
 
-    int scale = Math.min(WIDTH/trailGameConfig.getWidth(), HEIGHT/trailGameConfig.getHeight());
+    int scale = (int) Math.pow(2, 5);
 
     for(int x = 0; x<tileMap.length; x++) {
       for(int y = 0; y<tileMap[0].length; y++) {
         renderer.setColor(colorMap[tileMap[x][y]]);
+        //renderer.setColor(new Color());
         renderer.rect(x*scale, y*scale , scale, scale);
       }
     }
 
     renderer.end();
 
-    if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
+
+
+
+
+
+    if (Gdx.input.isKeyJustPressed(Keys.SPACE))
       generateMap();
+//
+//    if (Gdx.input.isKeyPressed(Keys.ENTER))
+//      applyMajorityVote();
 
     uiStage.act();
     uiStage.draw();
@@ -103,19 +109,8 @@ public class TrailGame implements Screen {
   }
 
   private void generateMap() {
-    tileMap = trail.field();
-
-    //decorate with light gray
-    for(int x = 0; x<tileMap.length; x++) {
-      for(int y = 0; y<tileMap[0].length; y++) {
-        if(tileMap[x][y] == 0 && (x+y)%2==1) {
-          tileMap[x][y] = 2;
-        }
-      }
-    }
+    tileMap = diaSqu.diasqu();
   }
-
-
 
   @Override
   public void hide() {

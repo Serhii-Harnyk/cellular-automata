@@ -1,6 +1,6 @@
 package sharnyk.testca.mapgen.domain.topology;
 
-public class Cylinder implements Topology {
+public class Cylinder implements Topology2d {
 
   @Override
   public int[][] neighborhood(int i, int j, int[][] map, int size) {

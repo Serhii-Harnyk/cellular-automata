@@ -16,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import sharnyk.testca.mapgen.MapgenApp;
+import sharnyk.testca.mapgen.CAApp;
 import sharnyk.testca.mapgen.majvote.split.MajorityVoteConcurrentSplitter;
 import sharnyk.testca.mapgen.domain.neigh.Diagonal;
 import sharnyk.testca.mapgen.domain.neigh.Moore;
@@ -24,7 +24,7 @@ import sharnyk.testca.mapgen.domain.neigh.Neighbourhood;
 import sharnyk.testca.mapgen.domain.neigh.VonNeumann;
 import sharnyk.testca.mapgen.domain.topology.Cylinder;
 import sharnyk.testca.mapgen.domain.topology.Plain;
-import sharnyk.testca.mapgen.domain.topology.Topology;
+import sharnyk.testca.mapgen.domain.topology.Topology2d;
 import sharnyk.testca.mapgen.domain.topology.Torus;
 import sharnyk.testca.mapgen.majvote.MajorityVote;
 import sharnyk.testca.mapgen.majvote.MapInit;
@@ -39,7 +39,7 @@ public class MajorityVoteGame implements Screen {
 
   // visual utils
   private ShapeRenderer renderer;
-  private final MapgenApp game;
+  private final CAApp game;
   private OrthographicCamera camera;
   private Skin uiSkin;
   private Stage uiStage;
@@ -57,13 +57,13 @@ public class MajorityVoteGame implements Screen {
 
 
 
-  public MajorityVoteGame(final MapgenApp gam, GameConfig config) {
+  public MajorityVoteGame(final CAApp gam, GameConfig config) {
     this.game = gam;
     this.config = config;
     uiSkin = new Skin(Gdx.files.internal("mapgen/uiskin.json"));
     uiStage = new Stage(new ScreenViewport(), game.batch);
 
-    Topology topology;
+    Topology2d topology;
     if(config.getTopology().equals("Torus"))
       topology = new Torus();
     else if(config.getTopology().equals("Cylinder"))

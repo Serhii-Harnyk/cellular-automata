@@ -1,11 +1,13 @@
 package sharnyk.testca.mapgen.trail;
 
+import sharnyk.testca.mapgen.core.SteppedField;
+
 import java.util.List;
 import java.util.SplittableRandom;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Trail {
+public class Trail implements SteppedField {
     private final SplittableRandom splittableRandom = new SplittableRandom();
 
     private final int height;
@@ -20,6 +22,7 @@ public class Trail {
         this.maxChunkLength = maxChunkLength;
     }
 
+    @Override
     public int[][] field() {
         if(pathLength < width)
             throw new RuntimeException("Path length should be more than width of the area");

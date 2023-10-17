@@ -1,6 +1,6 @@
 package sharnyk.testca.mapgen.domain.topology;
 
-public class Torus implements Topology {
+public class Torus implements Topology2d {
 
   @Override
   public int[][] neighborhood(int i, int j, int[][] map, int size) {

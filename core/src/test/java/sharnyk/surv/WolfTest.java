@@ -5,8 +5,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import sharnyk.testca.mapgen.domain.neigh.Diagonal;
-import sharnyk.testca.mapgen.surv.Survival;
+import sharnyk.testca.mapgen.archive.diasqu.surv.Survival;
 
 public class WolfTest {
 

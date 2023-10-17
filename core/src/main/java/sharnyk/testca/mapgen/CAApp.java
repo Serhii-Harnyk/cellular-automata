@@ -3,11 +3,9 @@ package sharnyk.testca.mapgen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import sharnyk.core.MapgenMenu;
-import sharnyk.testca.mapgen.diasqu.DiaSquGame;
-import sharnyk.testca.mapgen.majvote.screens.MajorityVoteMenu;
+import sharnyk.testca.mapgen.core.MainMenu;
 
-public class MapgenApp extends Game {
+public class CAApp extends Game {
 
   public SpriteBatch batch;
   public BitmapFont font;
@@ -15,7 +13,7 @@ public class MapgenApp extends Game {
   public void create() {
     batch = new SpriteBatch();
     font = new BitmapFont(); // use libGDX's default Arial font
-    this.setScreen(new MapgenMenu(this));
+    this.setScreen(new MainMenu(this));
   }
 
   public void render() {

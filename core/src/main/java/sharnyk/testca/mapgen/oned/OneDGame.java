@@ -1,7 +1,7 @@
-package sharnyk.testca.mapgen.surv;
+package sharnyk.testca.mapgen.oned;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -11,44 +11,45 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import sharnyk.testca.mapgen.MapgenApp;
-import sharnyk.testca.mapgen.diasqu.DiaSqu;
+import sharnyk.testca.mapgen.CAApp;
+import sharnyk.testca.mapgen.core.SteppedField;
 
-public class SurvivalGame implements Screen {
+public class OneDGame implements Screen {
 
-  private static final int WIDTH = 1024;
-  private static final int HEIGHT = 1024;
+  private static final int WIDTH = 1000;
+  private static final int HEIGHT = 1000;
 
-  private Color[] colorMap = {Color.BLACK, Color.BLUE, Color.GREEN, Color.RED, Color.CHARTREUSE, Color.BROWN, Color.CORAL, Color.CYAN,
-      Color.GOLD, Color.LIME, Color.ORANGE, Color.MAROON, Color.FOREST, Color.NAVY, Color.ROYAL, Color.WHITE};
+  private final Color[] colorMap = {Color.WHITE, Color.BLACK, Color.LIGHT_GRAY};
 
   // visual utils
   private ShapeRenderer renderer;
-  private final MapgenApp game;
-  private OrthographicCamera camera;
-  private Skin uiSkin;
-  private Stage uiStage;
+  private final CAApp game;
+  private final OrthographicCamera camera;
+  private final Skin uiSkin;
+  private final Stage uiStage;
 
   // logic utils
-  private Survival survival;
+  private final SteppedField field;
   // game state
-  private int step = 0;
-  private int[][] tileMap;
-  private int scaleFactor = 4;
-  private int scale = (int) Math.pow(2, scaleFactor);
+  private final int step = 0;
+  int[][] tileMap;
+  OneDGameConfig OneDGameConfig;
 
 
 
-  public SurvivalGame(final MapgenApp gam) {
+
+  public OneDGame(final CAApp gam, OneDGameConfig config) {
     this.game = gam;
     uiSkin = new Skin(Gdx.files.internal("mapgen/uiskin.json"));
     uiStage = new Stage(new ScreenViewport(), game.batch);
 
     // create the camera and the SpriteBatch
     camera = new OrthographicCamera();
-    camera.setToOrtho(false, WIDTH, HEIGHT+30);
+    camera.setToOrtho(false, WIDTH, HEIGHT);
+    camera.rotate(90,0,0,1);
 
-    survival = new Survival(10, 10, 10, 10, 10, WIDTH/scale, WIDTH/scale);
+    field = new OneDField(config.getHeight(), config.getWidth());
+    OneDGameConfig = config;
 
   }
 
@@ -62,43 +63,32 @@ public class SurvivalGame implements Screen {
     ScreenUtils.clear(1, 1, 1, 0);
 
     // tell the camera to update its matrices.
+
     camera.update();
 
     renderer.setProjectionMatrix(camera.combined);
     renderer.begin(ShapeType.Filled);
     renderer.setColor(Color.BLACK);
 
-
+    int scale = Math.min(WIDTH/OneDGameConfig.getWidth(), HEIGHT/OneDGameConfig.getHeight());
 
     for(int x = 0; x<tileMap.length; x++) {
       for(int y = 0; y<tileMap[0].length; y++) {
-        renderer.setColor(getColor(tileMap[x][y]));
+        renderer.setColor(colorMap[tileMap[x][y]]);
         renderer.rect(x*scale, y*scale , scale, scale);
       }
     }
 
     renderer.end();
 
-
-
-
-
-
-    if (Gdx.input.isKeyJustPressed(Keys.SPACE))
+    if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
       generateMap();
 
+    if (Gdx.input.isKeyPressed(Input.Keys.ENTER))
+      generateMap();
 
     uiStage.act();
     uiStage.draw();
-  }
-
-  private Color getColor(int i) {
-    if(i >= 200)
-      return Color.BLACK;
-    if(i >= 100)
-      return Color.WHITE;
-    else
-      return Color.FOREST;
   }
 
 
@@ -119,8 +109,16 @@ public class SurvivalGame implements Screen {
   }
 
   private void generateMap() {
+    tileMap = field.field();
 
-    tileMap = survival.step();
+    //decorate with light gray
+//    for(int x = 0; x<tileMap.length; x++) {
+//      for(int y = 0; y<tileMap[0].length; y++) {
+//        if(tileMap[x][y] == 0 && (x+y)%2==1) {
+//          tileMap[x][y] = 2;
+//        }
+//      }
+//    }
   }
 
   @Override

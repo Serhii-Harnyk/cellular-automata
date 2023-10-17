@@ -1,6 +1,6 @@
 package sharnyk.html;
 
-import sharnyk.core.MapgenApp;
+import sharnyk.testca.mapgen.majvote.MapgenApp;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;

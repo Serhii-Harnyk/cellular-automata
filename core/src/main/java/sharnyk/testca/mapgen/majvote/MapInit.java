@@ -4,7 +4,7 @@ import java.util.SplittableRandom;
 
 public class MapInit {
 
-  private SplittableRandom splittableRandom = new SplittableRandom();
+  private final SplittableRandom splittableRandom = new SplittableRandom();
 
   /**
    *

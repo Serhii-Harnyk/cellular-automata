@@ -16,17 +16,17 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import sharnyk.testca.mapgen.MapgenApp;
+import sharnyk.testca.mapgen.CAApp;
 
 public class MajorityVoteMenu implements Screen {
 
-  MapgenApp game;
+  CAApp game;
   OrthographicCamera camera;
   Stage uiStage;
   Skin uiSkin;
   GameConfig config;
 
-  public MajorityVoteMenu(final MapgenApp game) {
+  public MajorityVoteMenu(final CAApp game) {
     GameConfig defaultConfig = GameConfig.builder()
         .scale(5)
         .density(Math.round(50f))
@@ -42,7 +42,7 @@ public class MajorityVoteMenu implements Screen {
     setUpScreen();
   }
 
-  public MajorityVoteMenu(final MapgenApp game, GameConfig config) {
+  public MajorityVoteMenu(final CAApp game, GameConfig config) {
     this.game = game;
     this.config = config;
 

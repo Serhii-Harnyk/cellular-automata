@@ -1,4 +1,4 @@
-package sharnyk.core;
+package sharnyk.testca.mapgen.majvote;
 
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.Texture;

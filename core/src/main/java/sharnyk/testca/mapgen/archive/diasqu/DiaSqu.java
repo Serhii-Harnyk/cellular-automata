@@ -1,4 +1,4 @@
-package sharnyk.testca.mapgen.diasqu;
+package sharnyk.testca.mapgen.archive.diasqu;
 import java.util.SplittableRandom;
 
 public class DiaSqu {

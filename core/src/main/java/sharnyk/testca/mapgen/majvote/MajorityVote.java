@@ -3,15 +3,15 @@ package sharnyk.testca.mapgen.majvote;
 import sharnyk.testca.mapgen.domain.neigh.Moore;
 import sharnyk.testca.mapgen.domain.neigh.Neighbourhood;
 import sharnyk.testca.mapgen.domain.topology.Plain;
-import sharnyk.testca.mapgen.domain.topology.Topology;
+import sharnyk.testca.mapgen.domain.topology.Topology2d;
 
 public class MajorityVote {
   private int colorsCount;
   private int neighSize;
-  private Topology topology;
+  private Topology2d topology;
   private Neighbourhood neigh;
 
-  public MajorityVote(int colorsCount, int neighSize, Topology topology, Neighbourhood neigh) {
+  public MajorityVote(int colorsCount, int neighSize, Topology2d topology, Neighbourhood neigh) {
     this.colorsCount = colorsCount;
     this.neighSize = neighSize;
     this.topology = topology;
